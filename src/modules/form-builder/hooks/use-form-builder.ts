@@ -40,8 +40,15 @@ export const useFormBuilder = () => {
   };
 
   const importConfig = (json: string) => {
-    const config = JSON.parse(json) as FormConfig;
-    setFields(config.fields);
+    const parsed = JSON.parse(json) as unknown;
+    if (
+      typeof parsed !== 'object' ||
+      parsed === null ||
+      !Array.isArray((parsed as Record<string, unknown>).fields)
+    ) {
+      throw new Error('Invalid config: expected { fields: [...] }');
+    }
+    setFields((parsed as FormConfig).fields);
     setSelectedFieldId(null);
   };
 
