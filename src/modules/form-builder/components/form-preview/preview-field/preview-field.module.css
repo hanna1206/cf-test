@@ -31,6 +31,20 @@
   background: #fff;
 }
 
+.input-error {
+  border-color: #ef4444;
+  background: #fff5f5;
+}
+
+.input-error:focus {
+  border-color: #ef4444;
+}
+
+.error-msg {
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
 .group {
   display: flex;
   flex-direction: column;
