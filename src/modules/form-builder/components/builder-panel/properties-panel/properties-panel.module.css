@@ -1,0 +1,50 @@
+.placeholder {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.properties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.prop-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.prop-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.prop-label {
+  font-size: 0.8125rem;
+  color: #475569;
+  width: 4rem;
+  flex-shrink: 0;
+}
+
+.prop-input {
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #f8fafc;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.prop-input:focus {
+  border-color: #6366f1;
+  background: #fff;
+}
