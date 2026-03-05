@@ -1,0 +1,50 @@
+.preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  background: #fff;
+  border-left: 1px solid #e2e8f0;
+}
+
+.heading {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.empty {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  font-style: italic;
+}
+
+.submit {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submit:hover {
+  background: #2563eb;
+}
