@@ -49,11 +49,14 @@ export const JsonModal = (props: JsonModalProps) => {
   const handleApply = () => {
     if (props.mode !== 'import') return;
     try {
-      JSON.parse(value);
       props.onApply(value);
       onClose();
-    } catch {
-      setError('Invalid JSON — please check the syntax and try again.');
+    } catch (e) {
+      setError(
+        e instanceof Error
+          ? e.message
+          : 'Invalid JSON — please check the syntax and try again.',
+      );
     }
   };
 
