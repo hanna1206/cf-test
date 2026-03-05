@@ -10,7 +10,8 @@
     "^next(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@/(.*)$",
-    "^[./]"
+    "^[./](?!.*\\.css$).*$",
+    "^.+\\.css$"
   ],
   "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
