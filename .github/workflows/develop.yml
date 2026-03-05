@@ -1,0 +1,23 @@
+name: Perform checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-and-lint:
+    name: Run linters, check build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+      - name: Set Node version
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install Dependencies
+        run: npm run install
+      - name: Run linters
+        run: npm run lint
+      - name: Verify Build
+        run: npm run build
