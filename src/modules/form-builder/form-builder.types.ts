@@ -1,10 +1,14 @@
 export type FieldType = 'text' | 'number' | 'group';
 
-interface BaseField {
+export interface BaseField {
   id: string;
   label: string;
   required: boolean;
 }
+
+export type FieldUpdate = Partial<Pick<BaseField, 'label' | 'required'>> &
+  Partial<Pick<NumberField, 'min' | 'max'>> &
+  Partial<Pick<GroupField, 'children'>>;
 
 export interface TextField extends BaseField {
   type: 'text';
