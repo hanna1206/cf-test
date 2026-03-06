@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -21,4 +21,15 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    environment: 'node',
+    globals: true,
+    reporter: 'verbose',
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/modules/form-builder/utils/**'],
+      reporter: ['text', 'lcov'],
+    },
+  },
 });
