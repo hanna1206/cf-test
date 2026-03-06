@@ -4,6 +4,24 @@ A single-page application that lets users visually construct a form schema, prev
 
 **Live demo:** [cf-test-gamma.vercel.app](https://cf-test-gamma.vercel.app/)
 
+## Features
+
+- Add and configure form fields (text, number)
+- Create nested groups recursively
+- Reorder fields (move up/down), promote to parent, and demote into a sibling group
+- Live preview of the resulting form schema
+- JSON export and import
+- Field validation (required, min/max for numbers)
+
+## Architecture Overview
+
+The form schema is represented as a recursive tree structure where:
+
+- Fields are leaf nodes
+- Groups are container nodes that can hold other fields or groups
+
+State is managed centrally and propagated through React context. This allows nested structures to be rendered recursively while keeping the UI logic simple.
+
 ## Tech Stack
 
 | Layer        | Technology                                              |
@@ -48,29 +66,15 @@ npm run test:ui
 
 ## React 19 Notes
 
-### Context API
+This project uses React 19 features:
 
-This project uses the React 19 context syntax. Contexts are rendered directly without a `.Provider` wrapper:
-
-```tsx
-// React 19 — valid, no .Provider needed
-<MyContext value={value}>{children}</MyContext>
-
-// Also valid (older style, still works)
-<MyContext.Provider value={value}>{children}</MyContext.Provider>
-```
-
-Values are consumed with the new `use()` hook instead of `useContext`:
-
-```tsx
-const value = use(MyContext);
-```
-
-### No `useMemo` / `useCallback`
-
-This project uses the **React Compiler** (via Babel), which automatically memoizes components and values as needed. Manually adding `useMemo` or `useCallback` is therefore unnecessary and intentionally omitted throughout the codebase.
+- Contexts can be rendered directly without `.Provider`
+- Values are consumed via the `use()` hook
+- React Compiler (via Babel) automatically handles memoization, so `useMemo` / `useCallback` are intentionally omitted
 
 ## Further Improvements
+
+Given more time, the following improvements would be implemented:
 
 - **Drag-and-drop reordering** — replacing the current up/down buttons with drag-and-drop (e.g. via `@dnd-kit/core`) would make reordering fields faster and more intuitive.
 - **Clear button** — a toolbar-level "Clear" action that resets the entire form state back to an empty schema, useful when starting over without needing to delete fields one by one.
