@@ -11,7 +11,13 @@ export const demoteFieldInTree = (
 ): Field[] => {
   const field = findField(fields, id);
   if (!field) return fields;
-  const withoutField = deleteFieldFromTree(fields, id);
+  const targetField = findField(fields, targetGroupId);
+  if (!targetField || targetField.type !== 'group') return fields;
 
-  return addFieldToTree(withoutField, field, targetGroupId);
+  const withoutField = deleteFieldFromTree(fields, id);
+  const result = addFieldToTree(withoutField, field, targetGroupId);
+
+  if (!findField(result, id)) return fields;
+
+  return result;
 };
