@@ -5,7 +5,7 @@ import { findField } from '@/modules/form-builder/utils/find-field';
 
 import styles from './add-field-panel.module.css';
 
-const FIELD_TYPES: FieldType[] = ['text', 'number', 'group'];
+const FIELD_TYPES = Object.keys(FIELD_TYPE_LABELS) as FieldType[];
 
 export const AddFieldPanel = () => {
   const { fields, selectedFieldId, addField } = useFormBuilderContext();
