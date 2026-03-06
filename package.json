@@ -9,6 +9,10 @@
     "lint:js": "eslint .",
     "lint:css": "stylelint \"**/*.css\"",
     "lint:types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
     "lint": "npm-run-all --parallel lint:types lint:js lint:css",
     "preview": "vite preview",
     "prettier": "prettier . --write",
@@ -27,6 +31,8 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
@@ -44,6 +50,7 @@
     "stylelint-config-standard": "^40.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
   }
 }
