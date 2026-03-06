@@ -1,3 +1,4 @@
+import { MAX_NESTING_DEPTH } from '@/modules/form-builder/form-builder.const';
 import type {
   Field,
   GroupField,
@@ -81,5 +82,40 @@ describe('demoteFieldInTree', () => {
     const snapshot = JSON.stringify(fields);
     demoteFieldInTree(fields, 'field', 'group');
     expect(JSON.stringify(fields)).toBe(snapshot);
+  });
+
+  it('returns the original tree when destination group id is not found', () => {
+    const field = makeText({ id: 'field' });
+    const group = makeGroup({ id: 'group', children: [] });
+    const fields: Field[] = [field, group];
+
+    const result = demoteFieldInTree(fields, 'field', 'missing-group');
+
+    expect(result).toEqual(fields);
+  });
+
+  it('returns the original tree when destination id points to a non-group field', () => {
+    const field = makeText({ id: 'field' });
+    const notAGroup = makeText({ id: 'target' });
+    const fields: Field[] = [field, notAGroup];
+
+    const result = demoteFieldInTree(fields, 'field', 'target');
+
+    expect(result).toEqual(fields);
+  });
+
+  it('returns the original tree when demotion would exceed max depth', () => {
+    const movingField = makeText({ id: 'moving' });
+
+    let deepest = makeGroup({ id: 'deepest', children: [] });
+    for (let i = MAX_NESTING_DEPTH - 2; i >= 0; i--) {
+      deepest = makeGroup({ id: `g-${i}`, children: [deepest] });
+    }
+
+    const fields: Field[] = [movingField, deepest];
+
+    const result = demoteFieldInTree(fields, 'moving', 'deepest');
+
+    expect(result).toEqual(fields);
   });
 });
