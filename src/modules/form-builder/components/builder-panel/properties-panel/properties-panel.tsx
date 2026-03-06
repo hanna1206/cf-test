@@ -67,8 +67,9 @@ export const PropertiesPanel = () => {
               value={numField.min ?? ''}
               onChange={(e) =>
                 updateField(field.id, {
-                  min:
-                    e.target.value === '' ? undefined : Number(e.target.value),
+                  min: Number.isNaN(e.target.valueAsNumber)
+                    ? undefined
+                    : e.target.valueAsNumber,
                 })
               }
             />
@@ -84,8 +85,9 @@ export const PropertiesPanel = () => {
               value={numField.max ?? ''}
               onChange={(e) =>
                 updateField(field.id, {
-                  max:
-                    e.target.value === '' ? undefined : Number(e.target.value),
+                  max: Number.isNaN(e.target.valueAsNumber)
+                    ? undefined
+                    : e.target.valueAsNumber,
                 })
               }
             />
