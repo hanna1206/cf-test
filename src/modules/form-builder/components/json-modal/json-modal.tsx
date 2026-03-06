@@ -20,6 +20,7 @@ export const JsonModal = (props: JsonModalProps) => {
   const { mode, onClose } = props;
   const [value, setValue] = useState(mode === 'export' ? props.json : '');
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Prevent background scroll while modal is open
@@ -60,8 +61,14 @@ export const JsonModal = (props: JsonModalProps) => {
     }
   };
 
-  const handleCopy = () => {
-    void navigator.clipboard.writeText(value);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError('Failed to copy to clipboard. Please copy the text manually.');
+    }
   };
 
   return (
@@ -114,7 +121,7 @@ export const JsonModal = (props: JsonModalProps) => {
               type="button"
               onClick={handleCopy}
             >
-              Copy to clipboard
+              {copied ? 'Copied!' : 'Copy to clipboard'}
             </button>
           ) : (
             <button
