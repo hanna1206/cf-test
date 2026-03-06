@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '24'
       - name: Install Dependencies
-        run: npm run install
+        run: npm install
       - name: Run linters
         run: npm run lint
       - name: Verify Build
