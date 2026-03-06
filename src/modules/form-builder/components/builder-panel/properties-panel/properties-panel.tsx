@@ -38,19 +38,21 @@ export const PropertiesPanel = () => {
         />
       </div>
 
-      <div className={styles.propRow}>
-        <label className={styles.propLabel} htmlFor="prop-required">
-          Required
-        </label>
-        <input
-          id="prop-required"
-          type="checkbox"
-          checked={field.required}
-          onChange={(e) =>
-            updateField(field.id, { required: e.target.checked })
-          }
-        />
-      </div>
+      {field.type !== 'group' && (
+        <div className={styles.propRow}>
+          <label className={styles.propLabel} htmlFor="prop-required">
+            Required
+          </label>
+          <input
+            id="prop-required"
+            type="checkbox"
+            checked={field.required}
+            onChange={(e) =>
+              updateField(field.id, { required: e.target.checked })
+            }
+          />
+        </div>
+      )}
 
       {numField && (
         <>

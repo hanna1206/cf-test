@@ -18,7 +18,10 @@ export const PreviewField = ({
   const [touched, setTouched] = useState(false);
 
   const requiredError =
-    (submitted || touched) && field.required && value.trim() === '';
+    (submitted || touched) &&
+    field.type !== 'group' &&
+    field.required &&
+    value.trim() === '';
 
   const rangeError = (() => {
     if (field.type !== 'number' || value.trim() === '') return null;
@@ -39,10 +42,7 @@ export const PreviewField = ({
   if (field.type === 'group') {
     return (
       <fieldset className={styles.group}>
-        <legend className={styles.legend}>
-          {field.label}
-          {field.required && <span className={styles.required}>*</span>}
-        </legend>
+        <legend className={styles.legend}>{field.label}</legend>
         {field.children.length === 0 ? (
           <p className={styles.groupEmpty}>No fields in this group yet.</p>
         ) : (

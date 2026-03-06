@@ -8,14 +8,13 @@ export const createField = (type: FieldType): Field => {
   const base = {
     id: crypto.randomUUID(),
     label: `New ${FIELD_TYPE_LABELS[type]} Field`,
-    required: false,
   };
 
   switch (type) {
     case 'text':
-      return { ...base, type: 'text' };
+      return { ...base, type: 'text', required: false };
     case 'number':
-      return { ...base, type: 'number' };
+      return { ...base, type: 'number', required: false };
     case 'group':
       return { ...base, type: 'group', children: [] };
   }

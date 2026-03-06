@@ -7,7 +7,7 @@ import { PropertiesPanel } from './properties-panel/properties-panel';
 import styles from './builder-panel.module.css';
 
 export const BuilderPanel = () => {
-  const { fields } = useFormBuilderContext();
+  const { fields, setSelectedFieldId } = useFormBuilderContext();
 
   return (
     <aside className={styles.panel}>
@@ -15,7 +15,12 @@ export const BuilderPanel = () => {
         <AddFieldPanel />
       </section>
 
-      <section className={styles.treeArea}>
+      <section
+        className={styles.treeArea}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setSelectedFieldId(null);
+        }}
+      >
         {fields.length === 0 ? (
           <p className={styles.placeholder}>
             No fields yet. Add one from the palette above.

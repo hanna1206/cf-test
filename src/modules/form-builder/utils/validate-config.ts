@@ -19,9 +19,6 @@ const validateField = (raw: unknown, depth: number, path: string): Field => {
   if (typeof obj.label !== 'string') {
     throw new Error(`${path}.label: expected a string`);
   }
-  if (typeof obj.required !== 'boolean') {
-    throw new Error(`${path}.required: expected a boolean`);
-  }
   if (!VALID_TYPES.has(obj.type as string)) {
     throw new Error(
       `${path}.type: expected 'text', 'number', or 'group', got ${JSON.stringify(obj.type)}`,
@@ -29,6 +26,12 @@ const validateField = (raw: unknown, depth: number, path: string): Field => {
   }
 
   const type = obj.type as string;
+
+  if (type !== 'group') {
+    if (typeof obj.required !== 'boolean') {
+      throw new Error(`${path}.required: expected a boolean`);
+    }
+  }
 
   if (type === 'number') {
     if (obj.min !== undefined && typeof obj.min !== 'number') {
