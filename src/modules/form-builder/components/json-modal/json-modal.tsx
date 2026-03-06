@@ -70,11 +70,11 @@ export const JsonModal = (props: JsonModalProps) => {
         className={styles.modal}
         role="dialog"
         aria-modal="true"
-        aria-label={mode === 'export' ? 'Export JSON' : 'Import JSON'}
+        aria-labelledby="json-modal-title"
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.header}>
-          <h2 className={styles.title}>
+          <h2 id="json-modal-title" className={styles.title}>
             {mode === 'export' ? 'Export JSON' : 'Import JSON'}
           </h2>
           <button

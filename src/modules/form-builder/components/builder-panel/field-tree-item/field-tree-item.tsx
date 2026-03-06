@@ -47,6 +47,7 @@ export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
           <button
             className={styles.actionBtn}
             type="button"
+            aria-label={`Move ${field.label} up`}
             title="Move up"
             onClick={() => moveField(field.id, 'up')}
           >
@@ -55,6 +56,7 @@ export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
           <button
             className={styles.actionBtn}
             type="button"
+            aria-label={`Move ${field.label} down`}
             title="Move down"
             onClick={() => moveField(field.id, 'down')}
           >
@@ -63,6 +65,7 @@ export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
           <button
             className={`${styles.actionBtn} ${styles.actionBtnDelete}`}
             type="button"
+            aria-label={`Delete ${field.label}`}
             title="Delete"
             onClick={() => deleteField(field.id)}
           >
