@@ -21,7 +21,14 @@ export const BuilderPanel = () => {
             No fields yet. Add one from the palette above.
           </p>
         ) : (
-          fields.map((field) => <FieldTreeItem key={field.id} field={field} />)
+          fields.map((field, idx) => (
+            <FieldTreeItem
+              key={field.id}
+              field={field}
+              prevSibling={fields[idx - 1] ?? null}
+              nextSibling={fields[idx + 1] ?? null}
+            />
+          ))
         )}
       </section>
 

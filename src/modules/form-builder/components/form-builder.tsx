@@ -5,16 +5,14 @@ import { FormBuilderProvider } from '@/modules/form-builder/form-builder.context
 
 import styles from './form-builder.module.css';
 
-export const FormBuilder = () => {
-  return (
-    <FormBuilderProvider>
-      <div className={styles.root}>
-        <FormBuilderToolbar />
-        <div className={styles.body}>
-          <BuilderPanel />
-          <FormPreview />
-        </div>
+export const FormBuilder = () => (
+  <FormBuilderProvider>
+    <div className={styles.root}>
+      <FormBuilderToolbar />
+      <div className={styles.body}>
+        <BuilderPanel />
+        <FormPreview />
       </div>
-    </FormBuilderProvider>
-  );
-};
+    </div>
+  </FormBuilderProvider>
+);

@@ -8,5 +8,6 @@ export const findField = (fields: Field[], id: string): Field | null => {
       if (found) return found;
     }
   }
+
   return null;
 };
