@@ -1,3 +1,4 @@
+import { MAX_NESTING_DEPTH } from '@/modules/form-builder/form-builder.const';
 import { useFormBuilderContext } from '@/modules/form-builder/form-builder.context';
 import type {
   Field,
@@ -70,7 +71,7 @@ export const FieldTreeItem = ({
               ↩
             </button>
           )}
-          {prevSibling?.type === 'group' && (
+          {prevSibling?.type === 'group' && depth + 1 < MAX_NESTING_DEPTH && (
             <button
               className={styles.actionBtn}
               type="button"
@@ -81,7 +82,7 @@ export const FieldTreeItem = ({
               ⤴
             </button>
           )}
-          {nextSibling?.type === 'group' && (
+          {nextSibling?.type === 'group' && depth + 1 < MAX_NESTING_DEPTH && (
             <button
               className={styles.actionBtn}
               type="button"
@@ -92,24 +93,28 @@ export const FieldTreeItem = ({
               ⤵
             </button>
           )}
-          <button
-            className={styles.actionBtn}
-            type="button"
-            aria-label={`Move ${field.label} up`}
-            title="Move up"
-            onClick={() => moveField(field.id, 'up')}
-          >
-            ↑
-          </button>
-          <button
-            className={styles.actionBtn}
-            type="button"
-            aria-label={`Move ${field.label} down`}
-            title="Move down"
-            onClick={() => moveField(field.id, 'down')}
-          >
-            ↓
-          </button>
+          {prevSibling && (
+            <button
+              className={styles.actionBtn}
+              type="button"
+              aria-label={`Move ${field.label} up`}
+              title="Move up"
+              onClick={() => moveField(field.id, 'up')}
+            >
+              ↑
+            </button>
+          )}
+          {nextSibling && (
+            <button
+              className={styles.actionBtn}
+              type="button"
+              aria-label={`Move ${field.label} down`}
+              title="Move down"
+              onClick={() => moveField(field.id, 'down')}
+            >
+              ↓
+            </button>
+          )}
           <button
             className={`${styles.actionBtn} ${styles.actionBtnDelete}`}
             type="button"
