@@ -13,7 +13,7 @@ export const FormPreview = () => {
   const [prevFields, setPrevFields] = useState(fields);
 
   // Reset validation state when fields structure changes
-  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (prevFields !== fields) {
     setPrevFields(fields);
     setSubmitted(false);
