@@ -13,6 +13,7 @@ import { demoteFieldInTree } from '@/modules/form-builder/utils/demote-field-in-
 import { moveFieldInTree } from '@/modules/form-builder/utils/move-field-in-tree';
 import { promoteFieldInTree } from '@/modules/form-builder/utils/promote-field-in-tree';
 import { updateFieldInTree } from '@/modules/form-builder/utils/update-field-in-tree';
+import { validateConfig } from '@/modules/form-builder/utils/validate-config';
 
 export const useFormBuilder = () => {
   const [fields, setFields] = useState<Field[]>([]);
@@ -52,14 +53,8 @@ export const useFormBuilder = () => {
 
   const importConfig = (json: string) => {
     const parsed = JSON.parse(json) as unknown;
-    if (
-      typeof parsed !== 'object' ||
-      parsed === null ||
-      !Array.isArray((parsed as Record<string, unknown>).fields)
-    ) {
-      throw new Error('Invalid config: expected { fields: [...] }');
-    }
-    setFields((parsed as FormConfig).fields);
+    const config = validateConfig(parsed);
+    setFields(config.fields);
     setSelectedFieldId(null);
   };
 
