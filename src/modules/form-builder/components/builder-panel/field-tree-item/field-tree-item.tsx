@@ -56,7 +56,9 @@ export const FieldTreeItem = ({
             {field.type}
           </span>
           <span className={styles.treeItemText}>{field.label}</span>
-          {field.required && <span className={styles.requiredBadge}>*</span>}
+          {field.type !== 'group' && field.required && (
+            <span className={styles.requiredBadge}>*</span>
+          )}
         </button>
 
         <div className={styles.treeItemActions}>
