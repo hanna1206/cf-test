@@ -9,7 +9,9 @@ import type {
 import { addFieldToTree } from '@/modules/form-builder/utils/add-field-to-tree';
 import { createField } from '@/modules/form-builder/utils/create-field';
 import { deleteFieldFromTree } from '@/modules/form-builder/utils/delete-field-from-tree';
+import { demoteFieldInTree } from '@/modules/form-builder/utils/demote-field-in-tree';
 import { moveFieldInTree } from '@/modules/form-builder/utils/move-field-in-tree';
+import { promoteFieldInTree } from '@/modules/form-builder/utils/promote-field-in-tree';
 import { updateFieldInTree } from '@/modules/form-builder/utils/update-field-in-tree';
 
 export const useFormBuilder = () => {
@@ -19,6 +21,7 @@ export const useFormBuilder = () => {
   const addField = (type: FieldType, parentId: string | null = null) => {
     const newField = createField(type);
     setFields((prev) => addFieldToTree(prev, newField, parentId));
+    setSelectedFieldId(newField.id);
   };
 
   const deleteField = (id: string) => {
@@ -32,6 +35,14 @@ export const useFormBuilder = () => {
 
   const moveField = (id: string, direction: 'up' | 'down') => {
     setFields((prev) => moveFieldInTree(prev, id, direction));
+  };
+
+  const promoteField = (id: string) => {
+    setFields((prev) => promoteFieldInTree(prev, id));
+  };
+
+  const demoteField = (id: string, targetGroupId: string) => {
+    setFields((prev) => demoteFieldInTree(prev, id, targetGroupId));
   };
 
   const exportConfig = (): string => {
@@ -60,6 +71,8 @@ export const useFormBuilder = () => {
     deleteField,
     updateField,
     moveField,
+    promoteField,
+    demoteField,
     exportConfig,
     importConfig,
   };

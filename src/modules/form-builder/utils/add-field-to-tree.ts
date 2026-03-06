@@ -14,6 +14,7 @@ export const addFieldToTree = (
     if (field.id === parentId) {
       return { ...field, children: [...field.children, newField] };
     }
+
     return {
       ...field,
       children: addFieldToTree(field.children, newField, parentId),

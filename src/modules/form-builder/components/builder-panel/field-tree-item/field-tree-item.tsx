@@ -15,11 +15,26 @@ const TYPE_BADGE_CLASS: Record<FieldType, keyof typeof styles> = {
 export interface FieldTreeItemProps {
   field: Field;
   depth?: number;
+  parentId?: string | null;
+  prevSibling?: Field | null;
+  nextSibling?: Field | null;
 }
 
-export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
-  const { selectedFieldId, setSelectedFieldId, deleteField, moveField } =
-    useFormBuilderContext();
+export const FieldTreeItem = ({
+  field,
+  depth = 0,
+  parentId = null,
+  prevSibling = null,
+  nextSibling = null,
+}: FieldTreeItemProps) => {
+  const {
+    selectedFieldId,
+    setSelectedFieldId,
+    deleteField,
+    moveField,
+    promoteField,
+    demoteField,
+  } = useFormBuilderContext();
 
   const isSelected = selectedFieldId === field.id;
 
@@ -44,6 +59,39 @@ export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
         </button>
 
         <div className={styles.treeItemActions}>
+          {parentId && (
+            <button
+              className={styles.actionBtn}
+              type="button"
+              aria-label={`Move ${field.label} out of group`}
+              title="Move out of group"
+              onClick={() => promoteField(field.id)}
+            >
+              ↩
+            </button>
+          )}
+          {prevSibling?.type === 'group' && (
+            <button
+              className={styles.actionBtn}
+              type="button"
+              aria-label={`Move ${field.label} into group above`}
+              title="Move into group above"
+              onClick={() => demoteField(field.id, prevSibling.id)}
+            >
+              ⤴
+            </button>
+          )}
+          {nextSibling?.type === 'group' && (
+            <button
+              className={styles.actionBtn}
+              type="button"
+              aria-label={`Move ${field.label} into group below`}
+              title="Move into group below"
+              onClick={() => demoteField(field.id, nextSibling.id)}
+            >
+              ⤵
+            </button>
+          )}
           <button
             className={styles.actionBtn}
             type="button"
@@ -76,8 +124,15 @@ export const FieldTreeItem = ({ field, depth = 0 }: FieldTreeItemProps) => {
 
       {field.type === 'group' && field.children.length > 0 && (
         <div>
-          {field.children.map((child) => (
-            <FieldTreeItem key={child.id} field={child} depth={depth + 1} />
+          {field.children.map((child, idx) => (
+            <FieldTreeItem
+              key={child.id}
+              field={child}
+              depth={depth + 1}
+              parentId={field.id}
+              prevSibling={field.children[idx - 1] ?? null}
+              nextSibling={field.children[idx + 1] ?? null}
+            />
           ))}
         </div>
       )}
